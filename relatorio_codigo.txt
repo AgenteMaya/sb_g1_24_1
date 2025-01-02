@@ -1,0 +1,23 @@
+Aluna: Mayara Ramos Damazio
+Matrícula: 22108333
+
+Funcionamento do código:
+
+ - Função compacta:
+     Utilizando um loop com condição sempre verdadeira, logo no início ele pega um char do arquivo texto e testa se o arquivo está no final utilizando um if que tem como condição se está no "End of FIle". Quando não é final de arquivo, ela percorre o arquivo txt ao pegar char por char dele. A cada vez, ele procura no vetor de estruturas qual é a posição em que está a estrutura que tem o char correspondente no campo símbolo. Após achar a estrutura específica, utiliza um for que itera a partir do tamanho de bits que o codigo desse caractere tem, a função utiliza um buffer que serve como um repositório de bits. A cada bit do caractere, ele é shiftado em uma posição para a esquerda e somado com o bit da vez a ser guardado no buffer. Para pegar o bit da vez do código, utiliza-se um shift para a direita de modo que ele se torne o bit menos significativo e, ao fazer a operação de bit "&" com 1, todos os outros bits dele são zerados, ficando assim pronto para ser somado ao buffer já shiftado. Quando a variável "qtd_bits_buffer", que guarda a quantidade de vezes que um bit foi colocado no buffer e serve para administrar o momento certo para escrever no arquivo binário os bits que estão no buffer pois teriam completado um char completo. Após todas as letras terem sido escritas no arquivo binário e chegar no EOF do arquivo texto, ela percorre os bits do EOF. Se o tamanho de bits do código do EOF é menor que 8 bits e esse bit já foi foi escrito no buffer, sendo que ele não está cheio, então é feito uma shiftagem da quantidade que falat para completar o buffer para a esquerda e depois escreve no arquivo binário. Se o tamanho do código foi maior, ele apenas percorre e escreve no arquivo binário normlamente. Sendo assim, a função é finalizada.
+     
+ - Função descompacta:
+     Utilizando um com condição de que, enquanto ele estiver retirando um item do arquivo binário, ele irá rodar. A cada iteração, ele pega um char do arquivo. Como um char tem 8 bits, a funções tem um for que itera 8 vezes justamente por causa do tamanho do char: cada bit será shiftado para a direita a quantidade de vezes que ee precisar parar chegar na posição de bit menos significativo e, após a operação utilizando "&" para zerar os outros bits, ele é somado ao unsigned int "valor_char_aux" que está servindo como um buffer, só que de int para poder ser comparado com o campo codigo das estruturas do vetor de estruturas. A cada vez que ocorrem as operações com bit, ou seja, mais um bit foi capturado, a função percorre o vetor para ver se, com o valor que o "valor_char_aux" existe um char na estrutura que tenha o mesmo valor de código  e tamanho. Quando o EOF é lido, ele é barrado, não deixa entrar no if para ser adicionado no arquivo texto e a função acaba.
+     
+     
+Exatidão do código:
+  Estrutura orginal:
+    - Para os arquivos k1, k2, k3 e k4 o código está funcionando normalmente, sendo que tanto os bits dos arquivos binários quanto os caracteres dos dois foram devidamente replicados.
+  
+    - Para os arquivos k5, k6, k7 e k8 o arquivo binário gerado da compactação está diferente do binário original pois ambos os arquivos binários foram criados de estruturas diferentes. Entretanto, o conteúdo do arquivo texto foi perfeitamente copiado.
+    
+  Estrutura degenerada:
+    
+    - Para os arquivos k1, k2, k3 e k4 o arquivo binário gerado da compactação está diferente do binário original pois ambos os arquivos binários foram criados de estruturas diferentes. Entretanto, o conteúdo do arquivo texto foi perfeitamente copiado.
+    
+    - Para os arquivos k5, k6, k7 e k8 o código está funcionando normalmente, sendo que tanto os bits dos arquivos binários quanto os caracteres dos dois foram devidamente replicados.
